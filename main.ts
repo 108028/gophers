@@ -1,26 +1,20 @@
-input.onGesture(Gesture.ScreenDown, function () {
-    game.gameOver()
+input.onButtonPressed(Button.AB, function () {
+    serial.redirectToUSB()
 })
 input.onButtonPressed(Button.A, function () {
-    if (鎚仔.isTouching(地鼠)) {
-        game.pause()
+    if (_1.isTouching(_2)) {
         game.addScore(1)
-        game.resume()
-        地鼠.change(LedSpriteProperty.X, randint(0, 4))
+        _2.change(LedSpriteProperty.X, randint(0, 4))
     }
 })
-input.onButtonPressed(Button.AB, function () {
+input.onButtonPressed(Button.B, function () {
     game.pause()
-    serial.redirectToUSB()
-    basic.showIcon(IconNames.Yes)
-    basic.showString("USB")
+    basic.showNumber(game.score())
+    basic.pause(100)
     game.resume()
 })
-input.onButtonPressed(Button.B, function () {
-    basic.showNumber(game.score())
-})
-let 鎚仔: game.LedSprite = null
-let 地鼠: game.LedSprite = null
+let _2: game.LedSprite = null
+let _1: game.LedSprite = null
 basic.showLeds(`
     . . # . .
     # . # . #
@@ -28,15 +22,17 @@ basic.showLeds(`
     # . . . #
     . # # # .
     `)
-game.setScore(0)
-地鼠 = game.createSprite(randint(0, 4), 2)
-鎚仔 = game.createSprite(randint(0, 4), 2)
-basic.clearScreen()
+_1 = game.createSprite(2, 2)
+_2 = game.createSprite(randint(0, 4), 2)
+music.playTone(494, music.beat(BeatFraction.Half))
+basic.showLeds(`
+    # # # # #
+    # . . . #
+    # # # # #
+    . . # . .
+    . . # . .
+    `)
 basic.forever(function () {
-    basic.pause(1000)
-    鎚仔.move(1)
-    鎚仔.ifOnEdgeBounce()
-})
-control.inBackground(function () {
-	
+    basic.pause(900)
+    _1.move(1)
 })
