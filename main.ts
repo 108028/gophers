@@ -31,41 +31,9 @@ basic.showLeds(`
 game.setScore(0)
 地鼠 = game.createSprite(randint(0, 4), 2)
 鎚仔 = game.createSprite(randint(0, 4), 2)
-game.pause()
-basic.showLeds(`
-    . # # # .
-    # . . . #
-    # . # . #
-    # . . . #
-    # . . . #
-    `)
-basic.pause(100)
-basic.showLeds(`
-    # # # # #
-    # # # # #
-    # # # # #
-    . . # . .
-    . . # . .
-    `)
-basic.pause(100)
-basic.showLeds(`
-    . # # # .
-    . # . # .
-    . # # # .
-    . # . # .
-    . # . # .
-    `)
-basic.showLeds(`
-    . # # . .
-    . # . # .
-    . # # . .
-    . # . # .
-    . # # . .
-    `)
 basic.clearScreen()
-game.resume()
 basic.forever(function () {
-    basic.pause(100)
+    basic.pause(1000)
     鎚仔.move(1)
     鎚仔.ifOnEdgeBounce()
 })
