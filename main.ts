@@ -1,26 +1,28 @@
-function _3_2 () {
-    basic.clearScreen()
-    _5 = game.createSprite(1, 1)
-    for (let index = 0; index < 10; index++) {
-        let sprite: game.LedSprite = null
-        sprite.move(1)
-        if (_5.isTouchingEdge()) {
-            _5.turn(Direction.Right, 90)
-        }
-    }
-    while (!(input.buttonIsPressed(Button.B) || (input.buttonIsPressed(Button.A) || input.buttonIsPressed(Button.AB)))) {
-    	
-    }
-}
+input.onButtonPressed(Button.AB, function () {
+    serial.redirectToUSB()
+    pins.digitalWritePin(DigitalPin.P3, 1)
+    basic.showString("USB")
+    pins.digitalWritePin(DigitalPin.P3, 0)
+})
 input.onButtonPressed(Button.B, function () {
-    music.playTone(494, music.beat(BeatFraction.Half))
+    pins.digitalWritePin(DigitalPin.P1, 1)
     basic.showNumber(game.score())
     basic.pause(100)
+    pins.digitalWritePin(DigitalPin.P1, 0)
+})
+input.onButtonPressed(Button.A, function () {
+    pins.digitalWritePin(DigitalPin.P0, 1)
+    if (_1.isTouching(_2)) {
+        game.addScore(1)
+        _2.change(LedSpriteProperty.X, randint(0, 4))
+    }
+    pins.digitalWritePin(DigitalPin.P0, 0)
 })
 input.onGesture(Gesture.Shake, function () {
-    _3()
+	
 })
 function _3 () {
+    _3()
     _1.delete()
     _2.delete()
     game.pause()
@@ -70,7 +72,8 @@ function _3 () {
     basic.pause(100)
     basic.clearScreen()
     game.setScore(999)
-    basic.showNumber(input.temperature())
+    basic.showNumber(0)
+    basic.clearScreen()
     images.createBigImage(`
         # # # . # # # . . .
         # . # . # . . . . .
@@ -78,7 +81,13 @@ function _3 () {
         . . . . # . . . . .
         . . . . # # # . . .
         `).scrollImage(1, 200)
-    _3_2()
+    images.createImage(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `).showImage(0)
     for (let index = 0; index < game.score(); index++) {
         game.addScore(999)
         if (input.buttonIsPressed(Button.A)) {
@@ -165,19 +174,6 @@ function _3 () {
         }
     }
 }
-input.onButtonPressed(Button.A, function () {
-    music.playTone(494, music.beat(BeatFraction.Half))
-    if (_1.isTouching(_2)) {
-        game.addScore(1)
-        _2.change(LedSpriteProperty.X, randint(0, 4))
-    }
-})
-input.onButtonPressed(Button.AB, function () {
-    serial.redirectToUSB()
-    music.playTone(494, music.beat(BeatFraction.Half))
-    basic.showString("USB")
-})
-let _5: game.LedSprite = null
 let _4 = 0
 let _2: game.LedSprite = null
 let _1: game.LedSprite = null
